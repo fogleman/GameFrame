@@ -1,13 +1,15 @@
 //
-//  AppDelegate.h
+//  Util.h
 //  Game Frame
 //
 //  Created by Michael Fogleman on 3/9/14.
 //  Copyright (c) 2014 Michael Fogleman. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface Util : NSObject
+
++ (NSBitmapImageRep *)loadImage:(NSString *)path;
 
 @end

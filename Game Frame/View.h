@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  View.h
 //  Game Frame
 //
 //  Created by Michael Fogleman on 3/9/14.
@@ -8,6 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface View : NSView
+
+@property (strong) NSImage *mask;
+@property (strong) NSBitmapImageRep *bitmap;
 
 @end

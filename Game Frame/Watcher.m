@@ -27,14 +27,18 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
 
 - (void)watchFile:(NSString *)filename {
     NSString *path = [filename stringByDeletingLastPathComponent];
-    [self.paths addObject:path];
-    [self updateStream];
+    if (![self.paths containsObject:path]) {
+        [self.paths addObject:path];
+        [self updateStream];
+    }
 }
 
 - (void)unwatchFile:(NSString *)filename {
     NSString *path = [filename stringByDeletingLastPathComponent];
-    [self.paths removeObject:path];
-    [self updateStream];
+    if ([self.paths containsObject:path]) {
+        [self.paths removeObject:path];
+        [self updateStream];
+    }
 }
 
 - (void)updateStream {

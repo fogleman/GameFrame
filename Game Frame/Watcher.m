@@ -28,17 +28,32 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
 - (void)watchFile:(NSString *)filename {
     NSString *path = [filename stringByDeletingLastPathComponent];
     [self.paths addObject:path];
+    [self updateStream];
+}
+
+- (void)unwatchFile:(NSString *)filename {
+    NSString *path = [filename stringByDeletingLastPathComponent];
+    [self.paths removeObject:path];
+    [self updateStream];
+}
+
+- (void)updateStream {
     FSEventStreamRef stream = self.stream;
     if (stream != NULL) {
         FSEventStreamStop(stream);
         FSEventStreamUnscheduleFromRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     }
     NSArray *paths = [self.paths allObjects];
-    NSTimeInterval latency = 1.0;
-    stream = FSEventStreamCreate(NULL, &fileChanged, NULL, (__bridge CFArrayRef)paths, kFSEventStreamEventIdSinceNow, (CFAbsoluteTime)latency, kFSEventStreamCreateFlagUseCFTypes);
-    FSEventStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
-    FSEventStreamStart(stream);
-    self.stream = stream;
+    if (paths.count) {
+        NSTimeInterval latency = 1.0;
+        stream = FSEventStreamCreate(NULL, &fileChanged, NULL, (__bridge CFArrayRef)paths, kFSEventStreamEventIdSinceNow, (CFAbsoluteTime)latency, kFSEventStreamCreateFlagUseCFTypes);
+        FSEventStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+        FSEventStreamStart(stream);
+        self.stream = stream;
+    }
+    else {
+        self.stream = NULL;
+    }
 }
 
 @end

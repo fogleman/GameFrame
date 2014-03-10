@@ -56,6 +56,7 @@
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
+    [WindowController.watcher unwatchFile:self.filename];
     [WindowController.instances removeObject:self];
 }
 

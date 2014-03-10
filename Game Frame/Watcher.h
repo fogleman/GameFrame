@@ -13,6 +13,7 @@
 
 - (id)init;
 - (void)watchFile:(NSString *)filename;
+- (void)unwatchFile:(NSString *)filename;
 
 @property (strong) NSMutableSet *paths;
 @property (assign) FSEventStreamRef stream;

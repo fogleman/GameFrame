@@ -42,11 +42,14 @@
         for (int j = 0; j < kSize; j++) {
             int x = ox + i * size;
             int y = oy + j * size;
+            CGRect rect = NSMakeRect(x, y, size, size);
+            if (!CGRectIntersectsRect(rect, dirtyRect)) {
+                continue;
+            }
             NSColor *color = [bitmap colorAtX:i y:j];
             float brightness = MIN(1.0, color.brightnessComponent * 1.25 + 0.15);
             color = [NSColor colorWithHue:color.hueComponent saturation:color.saturationComponent brightness:brightness alpha:color.alphaComponent];
             [color setFill];
-            CGRect rect = NSMakeRect(x, y, size, size);
             NSRectFill(rect);
             [self.mask drawInRect:rect];
         }

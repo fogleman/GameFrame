@@ -38,6 +38,7 @@
     if (self) {
         [WindowController.instances addObject:self];
         self.filename = filename;
+        [self.window setTitleWithRepresentedFilename:filename];
         self.window.delegate = self;
         [self refresh];
         [WindowController.watcher watchFile:filename];

@@ -4,3 +4,5 @@ Simulates the appearance of the [Game Frame](https://www.kickstarter.com/project
 while you are busy pixel editing.
 
 The application watches the files you are editing and updates whenever you save.
+
+![Screenshot](http://i.imgur.com/EllkJDX.png)

@@ -36,8 +36,8 @@
     int h = self.bounds.size.height;
     int s = MIN(w, h);
     int size = (s - s / 16) / kSize;
-    int ox = (w - size * kSize) / 2.0;
-    int oy = (h - size * kSize) / 2.0;
+    int ox = (w - size * kSize) / 2;
+    int oy = (h - size * kSize) / 2;
     for (int i = 0; i < kSize; i++) {
         for (int j = 0; j < kSize; j++) {
             int x = ox + i * size;

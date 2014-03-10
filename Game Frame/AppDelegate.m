@@ -22,6 +22,7 @@
 }
 
 - (void)openFile:(NSString *)filename {
+    [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[NSURL fileURLWithPath:filename]];
     WindowController *controller = [[WindowController alloc] initWithFile:filename];
     [controller showWindow:nil];
 }

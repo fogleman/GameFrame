@@ -16,6 +16,14 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
 
 @implementation Watcher
 
++ (Watcher *)sharedWatcher {
+    static Watcher *watcher = nil;
+    if (watcher == nil) {
+        watcher = [[Watcher alloc] init];
+    }
+    return watcher;
+}
+
 - (id)init {
     self = [super init];
     if (self) {

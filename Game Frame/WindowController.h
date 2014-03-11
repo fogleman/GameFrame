@@ -13,7 +13,6 @@
 @interface WindowController : NSWindowController <NSWindowDelegate>
 
 + (NSMutableArray *)instances;
-+ (Watcher *)watcher;
 + (void)refreshAll;
 
 - (id)initWithFile:(NSString *)file;

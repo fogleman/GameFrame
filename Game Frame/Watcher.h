@@ -11,6 +11,8 @@
 
 @interface Watcher : NSObject
 
++ (Watcher *)sharedWatcher;
+
 - (id)init;
 - (void)watchFile:(NSString *)filename;
 - (void)unwatchFile:(NSString *)filename;

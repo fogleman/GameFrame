@@ -11,7 +11,7 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification *)notification {
     if (WindowController.instances.count == 0) {
         [self openDocument:nil];
     }

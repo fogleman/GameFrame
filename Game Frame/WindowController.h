@@ -13,11 +13,12 @@
 @interface WindowController : NSWindowController <NSWindowDelegate>
 
 + (NSMutableArray *)instances;
-+ (Watcher *)watcher;
 + (void)refreshAll;
++ (void)updateAll;
 
 - (id)initWithFile:(NSString *)file;
 - (void)refresh;
+- (void)update;
 
 @property (assign) IBOutlet View *view;
 @property (strong) NSString *filename;

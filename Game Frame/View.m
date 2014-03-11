@@ -24,6 +24,14 @@
     return YES;
 }
 
+- (void)update {
+    int previous = offset;
+    offset = (offset + kSize) % self.bitmap.pixelsHigh;
+    if (offset != previous) {
+        [self setNeedsDisplay:YES];
+    }
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
 	[super drawRect:dirtyRect];
     [[NSColor blackColor] setFill];
@@ -45,7 +53,9 @@
             if (!CGRectIntersectsRect(rect, dirtyRect)) {
                 continue;
             }
-            NSColor *color = [bitmap colorAtX:i y:j];
+            int px = i;
+            int py = j + offset;
+            NSColor *color = [bitmap colorAtX:px y:py];
             float brightness = MIN(1.0, color.brightnessComponent * 1.25 + 0.15);
             color = [NSColor colorWithHue:color.hueComponent saturation:color.saturationComponent brightness:brightness alpha:color.alphaComponent];
             [color setFill];

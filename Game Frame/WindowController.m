@@ -19,17 +19,15 @@
     return instances;
 }
 
-+ (Watcher *)watcher {
-    static Watcher *watcher = nil;
-    if (watcher == nil) {
-        watcher = [[Watcher alloc] init];
-    }
-    return watcher;
-}
-
 + (void)refreshAll {
     for (WindowController *controller in WindowController.instances) {
         [controller refresh];
+    }
+}
+
++ (void)updateAll {
+    for (WindowController *controller in WindowController.instances) {
+        [controller update];
     }
 }
 
@@ -41,7 +39,7 @@
         [self.window setTitleWithRepresentedFilename:filename];
         self.window.delegate = self;
         [self refresh];
-        [WindowController.watcher watchFile:filename];
+        [[Watcher sharedWatcher] watchFile:filename];
     }
     return self;
 }
@@ -51,12 +49,16 @@
     [self.view setNeedsDisplay:YES];
 }
 
+- (void)update {
+    [self.view update];
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-    [WindowController.watcher unwatchFile:self.filename];
+    [[Watcher sharedWatcher] unwatchFile:self.filename];
     [WindowController.instances removeObject:self];
 }
 

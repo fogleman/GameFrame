@@ -25,6 +25,12 @@
     }
 }
 
++ (void)updateAll {
+    for (WindowController *controller in WindowController.instances) {
+        [controller update];
+    }
+}
+
 - (id)initWithFile:(NSString *)filename {
     self = [super initWithWindowNibName:@"Window"];
     if (self) {
@@ -41,6 +47,10 @@
 - (void)refresh {
     self.view.bitmap = [Util loadImage:self.filename];
     [self.view setNeedsDisplay:YES];
+}
+
+- (void)update {
+    [self.view update];
 }
 
 - (void)windowDidLoad {

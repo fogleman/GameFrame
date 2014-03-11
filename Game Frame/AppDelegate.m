@@ -15,6 +15,11 @@
     if (WindowController.instances.count == 0) {
         [self openDocument:nil];
     }
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+}
+
+- (void)onTimer {
+    [WindowController updateAll];
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {

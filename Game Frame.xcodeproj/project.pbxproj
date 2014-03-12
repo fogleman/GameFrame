@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6922EA1918CE47D900971641 /* mask.png in Resources */ = {isa = PBXBuildFile; fileRef = 6922EA1818CE47D900971641 /* mask.png */; };
 		6922EA1F18CE538600971641 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 6922EA1E18CE538600971641 /* Icon.icns */; };
+		69E2DBBB18CFEC1D00C6AF0F /* frame.png in Resources */ = {isa = PBXBuildFile; fileRef = 69E2DBBA18CFEC1D00C6AF0F /* frame.png */; };
 		69FE029F18CD367900608133 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69FE029E18CD367900608133 /* Cocoa.framework */; };
 		69FE02A918CD367900608133 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 69FE02A718CD367900608133 /* InfoPlist.strings */; };
 		69FE02AB18CD367900608133 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 69FE02AA18CD367900608133 /* main.m */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		6922EA1818CE47D900971641 /* mask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mask.png; sourceTree = "<group>"; };
 		6922EA1E18CE538600971641 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
+		69E2DBBA18CFEC1D00C6AF0F /* frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frame.png; sourceTree = "<group>"; };
 		69FE029B18CD367900608133 /* Game Frame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Frame.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		69FE029E18CD367900608133 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		69FE02A118CD367900608133 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -65,6 +67,7 @@
 		6922EA1718CE47D900971641 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				69E2DBBA18CFEC1D00C6AF0F /* frame.png */,
 				6922EA1818CE47D900971641 /* mask.png */,
 			);
 			path = Resources;
@@ -207,6 +210,7 @@
 				6922EA1F18CE538600971641 /* Icon.icns in Resources */,
 				69FE02B518CD367900608133 /* MainMenu.xib in Resources */,
 				6922EA1918CE47D900971641 /* mask.png in Resources */,
+				69E2DBBB18CFEC1D00C6AF0F /* frame.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

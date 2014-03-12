@@ -5,4 +5,4 @@ while you are busy pixel editing.
 
 The application watches the files you are editing and updates whenever you save.
 
-![Screenshot](http://i.imgur.com/EllkJDX.png)
+![Screenshot](http://i.imgur.com/pHyS6pv.gif)

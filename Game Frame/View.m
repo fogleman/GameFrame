@@ -10,6 +10,7 @@
 
 #define kSize 16
 #define kScale 0.75
+#define kScaleWithoutBackground 0.9
 #define kBackgroundGridSize 740
 #define kBackgroundCenterX 977
 #define kBackgroundCenterY 524
@@ -19,6 +20,7 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.showBackground = YES;
         self.background = [NSImage imageNamed:@"frame"];
         self.mask = [NSImage imageNamed:@"mask"];
     }
@@ -40,18 +42,24 @@
     }
 }
 
+- (float)getScale {
+    return self.showBackground ? kScale : kScaleWithoutBackground;
+}
+
 - (void)drawRect:(NSRect)dirtyRect {
 	[super drawRect:dirtyRect];
     [[NSColor blackColor] setFill];
     NSRectFill(dirtyRect);
-    [self drawBackground:dirtyRect];
+    if (self.showBackground) {
+        [self drawBackground:dirtyRect];
+    }
     [self drawLights:dirtyRect];
 }
 
 - (void)drawBackground:(NSRect)dirtyRect {
     int ww = self.bounds.size.width;
     int wh = self.bounds.size.height;
-    int frameSize = MIN(ww, wh) * kScale;
+    int frameSize = MIN(ww, wh) * [self getScale];
     frameSize /= kSize;
     frameSize *= kSize;
     float scale = 1.0 * frameSize / kBackgroundGridSize;
@@ -70,7 +78,7 @@
     NSBitmapImageRep *bitmap = self.bitmap;
     int w = self.bounds.size.width;
     int h = self.bounds.size.height;
-    int size = MIN(w, h) * kScale / kSize;
+    int size = MIN(w, h) * [self getScale] / kSize;
     int ox = (w - size * kSize) / 2;
     int oy = (h - size * kSize) / 2;
     for (int i = 0; i < kSize; i++) {

@@ -22,6 +22,13 @@
     [WindowController updateAll];
 }
 
+- (IBAction)onShowBackground:(id)sender {
+    for (WindowController *controller in WindowController.instances) {
+        controller.view.showBackground = !controller.view.showBackground;
+        [controller refresh];
+    }
+}
+
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
     return NO;
 }

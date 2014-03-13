@@ -17,5 +17,6 @@
 @property (strong) NSImage *background;
 @property (strong) NSImage *mask;
 @property (strong) NSBitmapImageRep *bitmap;
+@property (assign) BOOL showBackground;
 
 @end

@@ -45,12 +45,21 @@
 }
 
 - (void)drawBackground:(NSRect)dirtyRect {
-    int w = self.bounds.size.width;
-    int h = self.bounds.size.height;
-    int size = MIN(w, h);
-    int ox = (w - size) / 2;
-    int oy = (h - size) / 2;
-    CGRect rect = NSMakeRect(ox, oy, size, size);
+    int ww = self.bounds.size.width;
+    int wh = self.bounds.size.height;
+    int frameSizeInBackground = 740;
+    int frameSizeInWindow = MIN(ww, wh) * 3 / 4;
+    frameSizeInWindow /= kSize;
+    frameSizeInWindow *= kSize;
+    float scale = 1.0 * frameSizeInWindow / frameSizeInBackground;
+    NSSize size = self.background.size;
+    int dx = size.width / 2 - 977;
+    int dy = size.height / 2 - 524;
+    int x = ww / 2 - scale * size.width / 2 + scale * dx;
+    int y = wh / 2 - scale * size.height / 2 + scale * dy;
+    int w = scale * size.width;
+    int h = scale * size.height;
+    NSRect rect = NSMakeRect(x, y, w, h);
     [self.background drawInRect:rect];
 }
 
@@ -58,14 +67,14 @@
     NSBitmapImageRep *bitmap = self.bitmap;
     int w = self.bounds.size.width;
     int h = self.bounds.size.height;
-    int size = MIN(w, h) * 21 / 32 / kSize;
+    int size = MIN(w, h) * 3 / 4 / kSize;
     int ox = (w - size * kSize) / 2;
     int oy = (h - size * kSize) / 2;
     for (int i = 0; i < kSize; i++) {
         for (int j = 0; j < kSize; j++) {
             int x = ox + i * size;
             int y = oy + j * size;
-            CGRect rect = NSMakeRect(x, y, size, size);
+            NSRect rect = NSMakeRect(x, y, size, size);
             if (!CGRectIntersectsRect(rect, dirtyRect)) {
                 continue;
             }

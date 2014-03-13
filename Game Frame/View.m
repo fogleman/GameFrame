@@ -9,6 +9,10 @@
 #import "View.h"
 
 #define kSize 16
+#define kScale 0.75
+#define kBackgroundGridSize 740
+#define kBackgroundCenterX 977
+#define kBackgroundCenterY 524
 
 @implementation View
 
@@ -47,14 +51,13 @@
 - (void)drawBackground:(NSRect)dirtyRect {
     int ww = self.bounds.size.width;
     int wh = self.bounds.size.height;
-    int frameSizeInBackground = 740;
-    int frameSizeInWindow = MIN(ww, wh) * 3 / 4;
-    frameSizeInWindow /= kSize;
-    frameSizeInWindow *= kSize;
-    float scale = 1.0 * frameSizeInWindow / frameSizeInBackground;
+    int frameSize = MIN(ww, wh) * kScale;
+    frameSize /= kSize;
+    frameSize *= kSize;
+    float scale = 1.0 * frameSize / kBackgroundGridSize;
     NSSize size = self.background.size;
-    int dx = size.width / 2 - 977;
-    int dy = size.height / 2 - 524;
+    int dx = size.width / 2 - kBackgroundCenterX;
+    int dy = size.height / 2 - kBackgroundCenterY;
     int x = ww / 2 - scale * size.width / 2 + scale * dx;
     int y = wh / 2 - scale * size.height / 2 + scale * dy;
     int w = scale * size.width;
@@ -67,7 +70,7 @@
     NSBitmapImageRep *bitmap = self.bitmap;
     int w = self.bounds.size.width;
     int h = self.bounds.size.height;
-    int size = MIN(w, h) * 3 / 4 / kSize;
+    int size = MIN(w, h) * kScale / kSize;
     int ox = (w - size * kSize) / 2;
     int oy = (h - size * kSize) / 2;
     for (int i = 0; i < kSize; i++) {

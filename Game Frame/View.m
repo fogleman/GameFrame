@@ -10,7 +10,7 @@
 
 #define kSize 16
 #define kScale 0.75
-#define kScaleWithoutBackground 0.9
+#define kScaleWithoutBackground 0.95
 #define kBackgroundGridSize 740
 #define kBackgroundCenterX 977
 #define kBackgroundCenterY 524

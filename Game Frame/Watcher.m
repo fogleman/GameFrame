@@ -27,7 +27,7 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
 - (id)init {
     self = [super init];
     if (self) {
-        self.paths = [[NSMutableSet alloc] init];
+        self.subscriptions = [[NSMutableDictionary alloc] init];
         self.stream = NULL;
     }
     return self;
@@ -35,17 +35,30 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
 
 - (void)watchFile:(NSString *)filename {
     NSString *path = [filename stringByDeletingLastPathComponent];
-    if (![self.paths containsObject:path]) {
-        [self.paths addObject:path];
+    if ([self.subscriptions objectForKey:path] == nil) {
+        [self.subscriptions setObject:@(1) forKey:path];
         [self updateStream];
+    }
+    else {
+        int value = [[self.subscriptions objectForKey:path] intValue] + 1;
+        [self.subscriptions setObject:@(value) forKey:path];
     }
 }
 
 - (void)unwatchFile:(NSString *)filename {
     NSString *path = [filename stringByDeletingLastPathComponent];
-    if ([self.paths containsObject:path]) {
-        [self.paths removeObject:path];
-        [self updateStream];
+    if ([self.subscriptions objectForKey:path] == nil) {
+        // do nothing
+    }
+    else {
+        int value = [[self.subscriptions objectForKey:path] intValue] - 1;
+        if (value > 0) {
+            [self.subscriptions setObject:@(value) forKey:path];
+        }
+        else {
+            [self.subscriptions removeObjectForKey:path];
+            [self updateStream];
+        }
     }
 }
 
@@ -55,7 +68,7 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
         FSEventStreamStop(stream);
         FSEventStreamUnscheduleFromRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
     }
-    NSArray *paths = [self.paths allObjects];
+    NSArray *paths = [self.subscriptions allKeys];
     if (paths.count) {
         NSTimeInterval latency = 1.0;
         stream = FSEventStreamCreate(NULL, &fileChanged, NULL, (__bridge CFArrayRef)paths, kFSEventStreamEventIdSinceNow, (CFAbsoluteTime)latency, kFSEventStreamCreateFlagUseCFTypes);

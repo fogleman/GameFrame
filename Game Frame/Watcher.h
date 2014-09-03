@@ -17,7 +17,7 @@
 - (void)watchFile:(NSString *)filename;
 - (void)unwatchFile:(NSString *)filename;
 
-@property (strong) NSMutableSet *paths;
+@property (strong) NSMutableDictionary *subscriptions;
 @property (assign) FSEventStreamRef stream;
 
 @end

@@ -31,21 +31,21 @@
     }
 }
 
-- (id)initWithFile:(NSString *)filename {
+- (id)initWithURL:(NSURL *)url {
     self = [super initWithWindowNibName:@"Window"];
     if (self) {
         [WindowController.instances addObject:self];
-        self.filename = filename;
-        [self.window setTitleWithRepresentedFilename:filename];
+        self.url = url;
+        [self.window setTitleWithRepresentedFilename:url.path];
         self.window.delegate = self;
         [self refresh];
-        [[Watcher sharedWatcher] watchFile:filename];
+        [[Watcher sharedWatcher] watchFile:url];
     }
     return self;
 }
 
 - (void)refresh {
-    self.view.bitmap = [Util loadImage:self.filename];
+    self.view.bitmap = [Util loadImage:self.url];
     [self.view setNeedsDisplay:YES];
 }
 
@@ -58,7 +58,7 @@
 }
 
 - (void)windowWillClose:(NSNotification *)notification {
-    [[Watcher sharedWatcher] unwatchFile:self.filename];
+    [[Watcher sharedWatcher] unwatchFile:self.url];
     [WindowController.instances removeObject:self];
 }
 

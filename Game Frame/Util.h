@@ -10,6 +10,8 @@
 
 @interface Util : NSObject
 
-+ (NSBitmapImageRep *)loadImage:(NSString *)path;
++ (NSBitmapImageRep *)loadImage:(NSURL *)url;
+
++ (BOOL)isDirectory:(NSURL *)url;
 
 @end

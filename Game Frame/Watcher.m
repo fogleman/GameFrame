@@ -8,6 +8,7 @@
 
 #import "Watcher.h"
 #import "WindowController.h"
+#import "Util.h"
 
 void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[])
 {
@@ -33,8 +34,11 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
     return self;
 }
 
-- (void)watchFile:(NSString *)filename {
-    NSString *path = [filename stringByDeletingLastPathComponent];
+- (void)watchFile:(NSURL *)url {
+    NSString *path = url.path;
+    if (![Util isDirectory:url]) {
+        path = [path stringByDeletingLastPathComponent];
+    }
     if ([self.subscriptions objectForKey:path] == nil) {
         [self.subscriptions setObject:@(1) forKey:path];
         [self updateStream];
@@ -45,8 +49,11 @@ void fileChanged(ConstFSEventStreamRef stream, void *arg, size_t numEvents, void
     }
 }
 
-- (void)unwatchFile:(NSString *)filename {
-    NSString *path = [filename stringByDeletingLastPathComponent];
+- (void)unwatchFile:(NSURL *)url {
+    NSString *path = url.path;
+    if (![Util isDirectory:url]) {
+        path = [path stringByDeletingLastPathComponent];
+    }
     if ([self.subscriptions objectForKey:path] == nil) {
         // do nothing
     }

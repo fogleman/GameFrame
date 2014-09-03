@@ -16,11 +16,11 @@
 + (void)refreshAll;
 + (void)updateAll;
 
-- (id)initWithFile:(NSString *)file;
+- (id)initWithURL:(NSURL *)url;
 - (void)refresh;
 - (void)update;
 
 @property (assign) IBOutlet View *view;
-@property (strong) NSString *filename;
+@property (strong) NSURL *url;
 
 @end

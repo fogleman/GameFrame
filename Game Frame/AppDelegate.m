@@ -33,9 +33,9 @@
     return NO;
 }
 
-- (void)openFile:(NSString *)filename {
-    [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[NSURL fileURLWithPath:filename]];
-    WindowController *controller = [[WindowController alloc] initWithFile:filename];
+- (void)openFile:(NSURL *)url {
+    [[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:url];
+    WindowController *controller = [[WindowController alloc] initWithURL:url];
     [controller showWindow:nil];
 }
 
@@ -44,28 +44,27 @@
     panel.title = @"Open";
     panel.showsResizeIndicator = YES;
     panel.showsHiddenFiles = NO;
-    panel.canChooseDirectories = NO;
+    panel.canChooseDirectories = YES;
     panel.canCreateDirectories = YES;
     panel.allowsMultipleSelection = YES;
-    panel.allowedFileTypes = @[@"bmp", @"png"];
+    panel.allowedFileTypes = @[@"bmp", @"png", @"gif"];
     [panel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
             for (NSURL *url in panel.URLs) {
-                NSString *filename = [url.path stringByResolvingSymlinksInPath];
-                [self openFile:filename];
+                [self openFile:url];
             }
         }
     }];
 }
 
 - (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename {
-    [self openFile:filename];
+    [self openFile:[NSURL URLWithString:filename]];
     return YES;
 }
 
 - (void)application:(NSApplication *)sender openFiles:(NSArray *)filenames {
     for (NSString *filename in filenames) {
-        [self openFile:filename];
+        [self openFile:[NSURL URLWithString:filename]];
     }
 }
 

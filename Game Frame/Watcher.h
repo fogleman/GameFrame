@@ -14,8 +14,8 @@
 + (Watcher *)sharedWatcher;
 
 - (id)init;
-- (void)watchFile:(NSString *)filename;
-- (void)unwatchFile:(NSString *)filename;
+- (void)watchFile:(NSURL *)url;
+- (void)unwatchFile:(NSURL *)url;
 
 @property (strong) NSMutableDictionary *subscriptions;
 @property (assign) FSEventStreamRef stream;

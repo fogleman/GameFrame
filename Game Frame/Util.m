@@ -19,13 +19,16 @@
             [images addObject:[url URLByAppendingPathComponent:file]];
         }
     }
-    NSImage *image = [[NSImage alloc] initWithSize:NSMakeSize(16, 16 * images.count)];
-    [image lockFocus];
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:16 pixelsHigh:16 * images.count bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSDeviceRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+    [NSGraphicsContext saveGraphicsState];
+    [NSGraphicsContext setCurrentContext:[NSGraphicsContext graphicsContextWithBitmapImageRep:rep]];
     for (int i = 0; i < images.count; i++) {
         NSImage *frame = [[NSImage alloc] initWithContentsOfURL:[images objectAtIndex:i]];
         [frame drawAtPoint:NSMakePoint(0, i * 16) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
     }
-    [image unlockFocus];
+    [NSGraphicsContext restoreGraphicsState];
+    NSImage *image = [[NSImage alloc] initWithSize:NSMakeSize(16, 16 * images.count)];
+    [image addRepresentation:rep];
     return image;
 }
 
